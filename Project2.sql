@@ -5,7 +5,6 @@ Global Suicide Rates Data Exploration and Data Cleaning
 
 SELECT * FROM Project2.dbo.suicide_rates 
 
-
 -- Check whether there is any duplicate data
 
 SELECT *, ROW_NUMBER() OVER(
@@ -20,7 +19,7 @@ FROM Project2.dbo.suicide_rates
 SELECT DISTINCT age FROM Project2.dbo.suicide_rates
 ORDER BY age ASC
 
-
+	
 SELECT year, SUM(suicides_no) AS suicide_no
 FROM Project2.dbo.suicide_rates
 WHERE year != 2016
@@ -52,7 +51,7 @@ ON suicide_rates.country = countries_by_continent.country
 ORDER BY suicide_rates.country, year, sex, age
 
 
--- Using CTE to join two seperate table and select some features from there
+-- Using CTE to join two seperate tables and select some features from there
 
 WITH suicide_rates_CTE AS (
 	SELECT suicide_rates.country, year, sex, age, suicides_no, population, [suicides/100k pop], [ gdp_for_year ($) ],[gdp_per_capita ($)],continent
@@ -67,23 +66,19 @@ ORDER BY country, year, sex, age
 GO
 DROP VIEW IF EXISTS #suicide_rates_view
 
-
-GO
-
 -- Create a view to store data needed to focus
-
+	
+GO
 CREATE VIEW suicide_rates_view AS 
 SELECT suicide_rates.country, year, sex, age, suicides_no, population, [suicides/100k pop], [ gdp_for_year ($) ],[gdp_per_capita ($)],continent
 FROM Project2.dbo.suicide_rates
 LEFT JOIN Project2.dbo.countries_by_continent 
 ON suicide_rates.country = countries_by_continent.country 
 WHERE year != 2016
-
-
-GO
  
 -- Using aggregate functions to perform calculation 
-
+	
+GO
 SELECT * FROM suicide_rates_view
 
 
