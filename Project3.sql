@@ -1,3 +1,7 @@
+/*
+Wine Quality Data Exploration and Data Cleaning
+*/
+
 SELECT * FROM `carvana`;
 
 -- Create a new table for deleting duplicate data purpose
